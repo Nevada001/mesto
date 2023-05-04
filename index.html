@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+  <link rel="stylesheet" href="vendor/normalize.css">
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body class="root">
+  <div class="page">
+    <header class="header">
+      <img class="header__logo" src="/images/Vector.svg">
+      <img class="header__line" src="/images/Line.png">
+    </header>
+    <main class="content">
+      <section class="profile">
+        <img class="profile__avatar" src="/images/Avatar.png">
+        <div class="profile__info">
+          <div class="profile__info-container">          
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
+            <img class="profile__button-edit links" src="/images/Edit Button.svg"></img>
+          </div>
+          <p class="profile__info-text">Исследователь океана</p>
+        </div>
+        <img class="profile__button-add links" src="/images/Add Button.svg">
+      </section>
+    <section class="elements">
+      <ul class="cards">
+        <li class="card">
+          <img class="card__image" alt="Карачаевск" src="/images/карачаевск.png">
+          <div class="card__container">
+            <h2 class="card__name">Карачаевск</h2>
+            <img class="card__heart" src="/images/eart.svg" alt="Сердечко">
+          </div>
+        </li>
+        <li class="card">
+          <img class="card__image" alt="Гора Эльбрус" src="/images/гора.png">
+          <div class="card__container">
+            <h2 class="card__name">Гора Эльбрус</h2>
+            <img class="card__heart" src="/images/eart.svg" alt="Сердечко">
+          </div>          
+        </li>
+        <li class="card">
+          <img class="card__image" alt="Домбай" src="/images/домбай.png">
+          <div class="card__container">
+            <h2 class="card__name">Домбай</h2>
+            <img class="card__heart" src="/images/eart.svg" alt="Сердечко">
+          </div>
+        </li>
+        <li class="card">
+          <img class="card__image" alt="Карачаевск" src="/images/гора.png">
+          <div class="card__container">
+            <h2 class="card__name">Гора Эльбрус</h2>
+            <img class="card__heart" src="/images/eart.svg" alt="Сердечко">
+          </div>
+        </li>
+        <li class="card">
+          <img class="card__image" alt="Домбай" src="/images/домбай.png">
+          <div class="card__container">
+            <h2 class="card__name">Домбай</h2>
+            <img class="card__heart" src="/images/eart.svg" alt="Сердечко">
+          </div>          
+        </li>
+        <li class="card">
+          <img class="card__image" alt="Карачаевск" src="/images/карачаевск.png">
+          <div class="card__container">
+            <h2 class="card__name">Карачаевск</h2>
+            <img class="card__heart" src="/images/eart.svg" alt="Сердечко">
+          </div>         
+        </li>
+      </ul>
+    </section>
+   </main>
+    <footer class="footer">
+      <p class="footer__text">© 2020 Mesto Russia</p>
+    </footer>
+  </div>
+<div class="popup">
+  <div class="popup__closed"></div>
+  <div class="popup__container">
+    <form class="popup__form">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <input class="popup__name" placeholder="Жак-Ив Кусто" type="text" name="name" id="name" required>
+      <input class="popup__profession" placeholder="Исследователь океана" type="text" name="profession" id="profession" required>
+      <button type="submit" class="popup__button">Сохранить</button>
+    </form>
+  </div>
+</div>
+</body>
