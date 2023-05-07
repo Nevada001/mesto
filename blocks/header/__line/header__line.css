@@ -1,26 +1,28 @@
 .header__line {
-  object-fit:cover;
+  background-image: url(../../../images/Line2.1.png);
+  background-size: cover;
   max-width: 880px;
+  min-height: 1px;
 }
 
 @media screen and (max-width: 1024px) {
 
-.header__line {
-  max-width: 720px;
-  } 
+  .header__line {
+    max-width: 720px;
+  }
 }
 
 @media screen and (max-width: 768px) {
 
-  .header__line{
+  .header__line {
     max-width: 520px;
-    }
   }
+}
 
-  @media screen and (max-width: 560px) {
+@media screen and (max-width: 560px) {
 
-    .header__line{
-      width: 100%;
-      margin: 0;
-      }
-    }
+  .header__line {
+    width: 100%;
+    margin: 0;
+  }
+}

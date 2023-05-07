@@ -1,14 +1,14 @@
 .profile__info {
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-margin: 0 auto 0 0;
+  margin: 0 auto 0 0;
 }
 
 @media screen and (max-width: 768px) {
 
-  .profile__info{
-  margin: 0 auto;
-  text-align: center;
-    }
+  .profile__info {
+    margin: 0 auto;
+    text-align: center;
   }
+}

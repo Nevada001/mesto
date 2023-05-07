@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -9,71 +8,72 @@
   <link rel="stylesheet" href="vendor/normalize.css">
   <link rel="stylesheet" href="./pages/index.css">
 </head>
+
 <body class="root">
   <div class="page">
     <header class="header">
-      <img class="header__logo" src="/images/Vector.svg">
-      <img class="header__line" src="/images/Line.png">
+      <img class="header__logo" src="/images/Vector.svg" alt="Логотип проекта">
+      <div class="header__line" src="/images/Line.png"></div>
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="/images/Avatar.png">
+        <img class="profile__avatar" src="/images/Avatar.png" alt="Аватар профиля">
         <div class="profile__info">
-          <div class="profile__info-container">          
+          <div class="profile__info-container">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
             <button class="profile__button-edit links"></button>
           </div>
           <p class="profile__info-text">Исследователь океана</p>
         </div>
-        <button class="profile__button-add links">
+        <button class="profile__button-add links"></button>
       </section>
-    <section class="elements">
-      <ul class="cards">
-        <li class="card">
-          <img class="card__image" alt="Карачаевск" src="/images/карачаевск.png">
-          <div class="card__container">
-            <h2 class="card__name">Карачаевск</h2>
-            <button class="card__heart links"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__image" alt="Гора Эльбрус" src="/images/гора.png">
-          <div class="card__container">
-            <h2 class="card__name">Гора Эльбрус</h2>
-            <button class="card__heart links"></button>
-          </div>          
-        </li>
-        <li class="card">
-          <img class="card__image" alt="Домбай" src="/images/домбай.png">
-          <div class="card__container">
-            <h2 class="card__name">Домбай</h2>
-            <button class="card__heart links"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__image" alt="Карачаевск" src="/images/гора.png">
-          <div class="card__container">
-            <h2 class="card__name">Гора Эльбрус</h2>
-            <button class="card__heart links"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__image" alt="Домбай" src="/images/домбай.png">
-          <div class="card__container">
-            <h2 class="card__name">Домбай</h2>
-            <button class="card__heart links"></button>
-          </div>          
-        </li>
-        <li class="card">
-          <img class="card__image" alt="Карачаевск" src="/images/карачаевск.png">
-          <div class="card__container">
-            <h2 class="card__name">Карачаево-Черкессия</h2>
-            <button class="card__heart links"></button>
-          </div>         
-        </li>
-      </ul>
-    </section>
-   </main>
+      <section class="elements">
+        <ul class="cards">
+          <li class="card">
+            <img class="card__image" alt="Карачаевск" src="/images/карачаевск.png">
+            <div class="card__container">
+              <h2 class="card__name">Карачаевск</h2>
+              <button class="card__heart links"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" alt="Гора Эльбрус" src="/images/гора.png">
+            <div class="card__container">
+              <h2 class="card__name">Гора Эльбрус</h2>
+              <button class="card__heart links"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" alt="Домбай" src="/images/домбай.png">
+            <div class="card__container">
+              <h2 class="card__name">Домбай</h2>
+              <button class="card__heart links"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" alt="Карачаевск" src="/images/гора.png">
+            <div class="card__container">
+              <h2 class="card__name">Гора Эльбрус</h2>
+              <button class="card__heart links"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" alt="Домбай" src="/images/домбай.png">
+            <div class="card__container">
+              <h2 class="card__name">Домбай</h2>
+              <button class="card__heart links"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" alt="Карачаевск" src="/images/карачаевск.png">
+            <div class="card__container">
+              <h2 class="card__name">Карачаево-Черкессия</h2>
+              <button class="card__heart links"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
     <footer class="footer">
       <p class="footer__text">© 2020 Mesto Russia</p>
     </footer>
@@ -82,12 +82,13 @@
     <div class="popup__container">
       <button class="popup__closed links"></button>
       <form class="popup__form">
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <input class="popup__name" placeholder="Жак-Ив Кусто" type="text" name="name" id="name" required>
-      <input class="popup__profession" placeholder="Исследователь океана" type="text" name="profession" id="profession" required>
-      <button type="submit" class="popup__button links">Сохранить</button>
-    </form>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input class="popup__name" placeholder="Жак-Ив Кусто" type="text" name="name" id="name" required>
+        <input class="popup__profession" placeholder="Исследователь океана" type="text" name="profession"
+          id="profession" required>
+        <button type="submit" class="popup__button links">Сохранить</button>
+      </form>
     </div>
   </div>
-<script src="./pages/index.js"></script> 
+  <script src="./pages/index.js"></script>
 </body>
