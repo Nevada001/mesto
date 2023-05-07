@@ -6,7 +6,7 @@ let nameInput = document.querySelector('.popup__name');
 let jobInput = document.querySelector('.popup__profession');
 
 function displayPopup() {
-  popup.classList.toggle('popup__opened');
+  popup.classList.toggle('popup_opened');
   nameInput.value = nameInput.textContent;
   jobInput.value = jobInput.textContent;
 }
@@ -14,7 +14,7 @@ popupButtonOpenend.addEventListener('click', displayPopup);
 displayPopup();
 
 function closedPopup() {
-  popup.classList.remove('popup__opened');
+  popup.classList.remove('popup_opened');
 }
 
 pupupButtonClosed.addEventListener('click', closedPopup);
