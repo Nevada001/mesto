@@ -7,3 +7,15 @@
   letter-spacing: 0em;
   text-align: left;
 }
+
+@media screen and (max-width: 560px) {
+  
+  .popup__title {
+font-size: 18px;
+font-weight: 900;
+line-height: 22px;
+letter-spacing: 0em;
+text-align: center;
+
+  }
+}

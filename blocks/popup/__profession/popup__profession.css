@@ -9,3 +9,11 @@
   text-align: left;
   min-height: 27px;
 }
+
+@media screen and (max-width: 560px) {
+
+  .popup__profession {
+    margin-bottom: 45px;
+  }
+  
+}

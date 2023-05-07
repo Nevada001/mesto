@@ -5,3 +5,9 @@
   margin-bottom: 37px;
   min-height: 50px;
 }
+
+@media screen and (max-width: 560px) {
+  .popup__button {
+    margin-bottom: 25px;
+  }
+}

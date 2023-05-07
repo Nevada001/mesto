@@ -1,6 +1,12 @@
 .page {
   max-width: 880px;
   margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
 }
 
 @media  screen and (max-width: 1024px) {
@@ -18,7 +24,7 @@ max-width: 720px;
 
 @media screen and (max-width: 560px) {
 
-  .page{
-    width: 100%;
+  .page {
+    max-width: 320px;
     }
   }
