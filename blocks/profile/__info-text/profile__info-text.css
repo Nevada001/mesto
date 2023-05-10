@@ -5,12 +5,19 @@
   line-height: 22px;
   letter-spacing: 0em;
   text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 336px;
 }
 
 @media screen and (max-width: 768px) {
 
   .profile__info-text {
-    text-align: center;
     margin: 0;
+    font-size: 14px;
+    line-height: 17px; 
+    width: 189px;
+    text-align: center;
   }
 }

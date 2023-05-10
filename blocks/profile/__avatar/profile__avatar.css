@@ -4,3 +4,10 @@
   height: 120px;
   padding: 4px 26px 4px 0;
 }
+
+@media  screen and (max-width: 768px) {
+
+.profile__avatar {
+  padding: 0;
+}
+}

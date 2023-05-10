@@ -1,6 +1,5 @@
-.popup__profession {
+.popup__input {
   border: none;
-  margin-bottom: 48px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   font-size: 14px;
   font-weight: 400;
@@ -10,9 +9,13 @@
   min-height: 27px;
 }
 
+.popup__input:last-of-type {
+  margin: 30px 0 48px;
+}
+
 @media screen and (max-width: 560px) {
 
-  .popup__profession {
+  .popup__input:last-of-type {
     margin-bottom: 45px;
   }
 

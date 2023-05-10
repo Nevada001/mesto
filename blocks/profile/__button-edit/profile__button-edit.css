@@ -4,9 +4,15 @@
   background-color: transparent;
   border: none;
   background-image: url(../../../images/Edit\ Button.svg);
-  background-size: 24px 24px;
+  background-size: 18px 18px;
   background-repeat: no-repeat;
-  width: 24px;
-  height: 33px;
+  width: 18px;
+  height: 18px;
   padding: 0;
+  align-self: center;
+}
+
+.profile__button-edit:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }
