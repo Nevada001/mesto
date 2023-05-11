@@ -8,7 +8,7 @@
   justify-content: center;
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 768px) {
 
   .cards {
     margin-top: 0;
