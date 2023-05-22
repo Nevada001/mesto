@@ -2,7 +2,8 @@ let popupButtonOpenend = document.querySelector('.profile__button-edit');
 let popupEdit = document.querySelector('.popup_edit');
 let addClosed = document.getElementById('addclose');
 let editClosed = document.getElementById('editclose');
-let formElement = document.querySelector('.popup__form');
+let formElementEdit = document.querySelector('.popup__form_type_edit');
+let formElementAdd = document.querySelector('.popup__form_type_add');
 let nameInput = document.getElementById('name');
 let jobInput = document.getElementById('prof');
 let profName = document.querySelector('.profile__title');
@@ -27,7 +28,7 @@ function handleFormSubmit (evt) {
     proffesion.textContent = jobInput.value;
     popupEdit.classList.toggle('popup_opened');
 }
-formElement.addEventListener('submit', handleFormSubmit);
+formElementEdit.addEventListener('submit', handleFormSubmit);
  
 let popupAdd = document.querySelector('.popup_add');
 let popupAddButtonOpened = document.querySelector('.profile__button-add');
@@ -38,6 +39,8 @@ popupAddButtonOpened.addEventListener('click', () => {
 
 addClosed.addEventListener('click', () => {
 popupAdd.classList.remove('popup_opened')});
+
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -103,3 +106,18 @@ itemCard6.querySelector('.card__image').src = initialCards[5].link;
 itemCard6.querySelector('.card__name').textContent = initialCards[5].name;
 // добавляем на страницу 
 cards.append(itemCard6);
+
+const like = document.querySelectorAll('.card__heart');
+
+
+
+const placeNameInput = document.getElementById('placeName');
+const pictureLinkInput = document.getElementById('link');
+
+formElementAdd.addEventListener ('submit', (evt) => {
+  evt.preventDefault();
+  const itemX = item.querySelector('.card').cloneNode(true);
+  itemX.querySelector('.card__image').src = pictureLinkInput.value;
+  itemX.querySelector('.card__name').textContent = placeNameInput.value;
+  cards.prepend(itemX);
+});
