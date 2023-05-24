@@ -67,57 +67,24 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ]; 
+const items = document.querySelector('#item').content;
+const templateElements = document.querySelector('.cards');
 
+function createCards (name, link) {
+  const card = items.querySelector('.card').cloneNode(true);
+  card.querySelector('.card__name').textContent = name;
+  card.querySelector('.card__image').alt = name;
+  card.querySelector('.card__image').src = link;
+  return card;
+}
 
-
-
-// находим  темплейт
-const cards = document.querySelector('.cards');
-const item = document.querySelector('#item').content;
-// клонируем содержимое темплейт
-const itemCard1 = item.querySelector('.card').cloneNode(true);
-itemCard1.querySelector('.card__image').src=initialCards[0].link;
-itemCard1.querySelector('.card__name').textContent=initialCards[0].name;
-// добавляем на страницу 
-cards.append(itemCard1);
-const itemCard2 = item.querySelector('.card').cloneNode(true);
-itemCard2.querySelector('.card__image').src = initialCards[1].link;
-itemCard2.querySelector('.card__name').textContent = initialCards[1].name;
-// добавляем на страницу 
-cards.append(itemCard2);
-const itemCard3 = item.querySelector('.card').cloneNode(true);
-itemCard3.querySelector('.card__image').src = initialCards[2].link;
-itemCard3.querySelector('.card__name').textContent = initialCards[2].name;
-// добавляем на страницу 
-cards.append(itemCard3);
-const itemCard4 = item.querySelector('.card').cloneNode(true);
-itemCard4.querySelector('.card__image').src = initialCards[3].link;
-itemCard4.querySelector('.card__name').textContent = initialCards[3].name;
-// добавляем на страницу 
-cards.append(itemCard4);
-const itemCard5 = item.querySelector('.card').cloneNode(true);
-itemCard5.querySelector('.card__image').src = initialCards[4].link;
-itemCard5.querySelector('.card__name').textContent = initialCards[4].name;
-// добавляем на страницу 
-cards.append(itemCard5);
-
-const itemCard6 = item.querySelector('.card').cloneNode(true);
-itemCard6.querySelector('.card__image').src = initialCards[5].link;
-itemCard6.querySelector('.card__name').textContent = initialCards[5].name;
-// добавляем на страницу 
-cards.append(itemCard6);
-
-const like = document.querySelectorAll('.card__heart');
-
-
+const cardsCreated = initialCards.forEach((item) => {
+templateElements.append(createCards(item.name, item.link));
+});
 
 const placeNameInput = document.getElementById('placeName');
 const pictureLinkInput = document.getElementById('link');
 
-formElementAdd.addEventListener ('submit', (evt) => {
+formElementAdd.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  const itemX = item.querySelector('.card').cloneNode(true);
-  itemX.querySelector('.card__image').src = pictureLinkInput.value;
-  itemX.querySelector('.card__name').textContent = placeNameInput.value;
-  cards.prepend(itemX);
-});
+templateElements.prepend(createCards(placeNameInput.value, pictureLinkInput.value))}); 
