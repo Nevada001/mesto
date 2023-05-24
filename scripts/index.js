@@ -75,8 +75,14 @@ function createCards (name, link) {
   card.querySelector('.card__name').textContent = name;
   card.querySelector('.card__image').alt = name;
   card.querySelector('.card__image').src = link;
+  card.querySelector('.card__heart').addEventListener('click', (evt) => {
+    evt.target.classList.toggle('card__heart_active')
+  });
+  card.querySelector('.card__delete').addEventListener('click', (evt) => {
+    evt.target.closest('.card').remove();
+  })
   return card;
-}
+};
 
 const cardsCreated = initialCards.forEach((item) => {
 templateElements.append(createCards(item.name, item.link));
@@ -88,3 +94,11 @@ const pictureLinkInput = document.getElementById('link');
 formElementAdd.addEventListener('submit', (evt) => {
   evt.preventDefault();
 templateElements.prepend(createCards(placeNameInput.value, pictureLinkInput.value))}); 
+
+const buttonDeleting = document.querySelector('.card__delete');
+
+buttonDeleting.addEventListener('click', (evt) => {
+  const deleting = evt.target.closest('.card');
+  deleting.remove();
+  return deleting;
+})
