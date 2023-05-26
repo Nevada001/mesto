@@ -37,8 +37,11 @@ popupAddButtonOpened.addEventListener('click', () => {
   popupAdd.classList.toggle('popup_opened');
 });
 
-addClosed.addEventListener('click', (closedPopup) => {
-popupAdd.classList.remove('popup_opened')});
+function closePopupAdd () {
+  popupAdd.classList.remove('popup_opened');
+}
+
+addClosed.addEventListener('click', closePopupAdd);
 
 
 const initialCards = [
@@ -108,7 +111,9 @@ const pictureLinkInput = document.getElementById('link');
 
 formElementAdd.addEventListener('submit', (evt) => {
   evt.preventDefault();
-templateElements.prepend(createCards(placeNameInput.value, pictureLinkInput.value))}); 
+templateElements.prepend(createCards(placeNameInput.value, pictureLinkInput.value));
+closePopupAdd ();
+}); 
 
 const buttonDeleting = document.querySelector('.card__delete');
 
