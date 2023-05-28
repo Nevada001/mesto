@@ -18,7 +18,6 @@ const popupTitleName = popupImage.querySelector(".popup__name");
 const popupPicture = popupImage.querySelector(".popup__picture");
 const placeNameInput = document.getElementById("placeName");
 const pictureLinkInput = document.getElementById("link");
-const buttonDeleting = document.querySelector(".card__delete");
 
 function displayPopup(popup) {
   popup.classList.toggle("popup_opened");
