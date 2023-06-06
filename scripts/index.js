@@ -43,9 +43,6 @@ function submitFormEditProfile(evt) {
   closePopup(popupEditProfile);
 }
 buttonOpenEditProfilePopup.addEventListener("click", displayPopupEdit);
-buttonCloseEditProfilePopup.addEventListener("click", () => {
-  closePopup(popupEditProfile);
-});
 
 function createCards(name, link) {
   const card = items.querySelector(".card").cloneNode(true);
@@ -77,13 +74,12 @@ document.addEventListener("keydown", (evt) => {
 });
 
 document.querySelectorAll(".popup").forEach((el) => {
-      el.addEventListener('click', (evt) => {
-        if(evt.target.classList.contains("popup")) {
-          closePopup(el);  
-        }
-      })      
+  el.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains("popup_opened") || evt.target.classList.contains("popup__closed")) {
+      closePopup(el);
+    }
   });
-
+});
 
 buttonCloseImagePopup.addEventListener("click", () => {
   closePopup(popupImage);
@@ -95,10 +91,6 @@ buttonOpenAddCardForm.addEventListener("click", () => {
   displayPopup(popupAdd);
   const buttonFormAddCardStartState = document.querySelector("#buttonCreate");
   buttonFormAddCardStartState.classList.add("popup__button_inactive");
-});
-
-buttonCloseAddCardForm.addEventListener("click", () => {
-  closePopup(popupAdd);
 });
 
 initialCards.forEach((item) => {
