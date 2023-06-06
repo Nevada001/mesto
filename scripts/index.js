@@ -81,10 +81,6 @@ document.querySelectorAll(".popup").forEach((el) => {
   });
 });
 
-buttonCloseImagePopup.addEventListener("click", () => {
-  closePopup(popupImage);
-});
-
 formEditProfile.addEventListener("submit", submitFormEditProfile);
 
 buttonOpenAddCardForm.addEventListener("click", () => {
