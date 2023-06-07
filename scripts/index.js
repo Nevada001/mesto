@@ -28,9 +28,17 @@ function displayPopup(popup) {
 
 function displayPopupEdit() {
   displayPopup(popupEditProfile);
+  const buttonSaveEditForm = popupEditProfile.querySelector('.popup__button');
   nameInput.value = profName.textContent;
   jobInput.value = proffesion.textContent;
+  popupEditProfile.querySelectorAll(enableValidationObject.inputSelector).forEach((el) => {
+    hideInputError(enableValidationObject.inputErrorClass, el);
+    buttonSaveEditForm.removeAttribute("disabled", true);
+    buttonSaveEditForm.classList.remove("popup__button_inactive");
+    });
 }
+
+buttonOpenEditProfilePopup.addEventListener("click", displayPopupEdit);
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
@@ -42,7 +50,8 @@ function submitFormEditProfile(evt) {
   proffesion.textContent = jobInput.value;
   closePopup(popupEditProfile);
 }
-buttonOpenEditProfilePopup.addEventListener("click", displayPopupEdit);
+
+  
 
 function createCards(name, link) {
   const card = items.querySelector(".card").cloneNode(true);
@@ -74,7 +83,7 @@ document.addEventListener("keydown", (evt) => {
 });
 
 document.querySelectorAll(".popup").forEach((el) => {
-  el.addEventListener("click", (evt) => {
+  el.addEventListener("mousedown", (evt) => {
     if (evt.target.classList.contains("popup_opened") || evt.target.classList.contains("popup__closed")) {
       closePopup(el);
     }
@@ -86,7 +95,13 @@ formEditProfile.addEventListener("submit", submitFormEditProfile);
 buttonOpenAddCardForm.addEventListener("click", () => {
   displayPopup(popupAdd);
   const buttonFormAddCardStartState = document.querySelector("#buttonCreate");
-  buttonFormAddCardStartState.classList.add("popup__button_inactive");
+  const popupAddInputs = popupAdd.querySelectorAll(enableValidationObject.inputSelector);
+  popupAddInputs.forEach((el) => {
+    if (!el.checkValidity()) {  
+      buttonFormAddCardStartState.classList.add("popup__button_inactive");
+      buttonFormAddCardStartState.setAttribute('disabled', true);
+      }
+  })
 });
 
 initialCards.forEach((item) => {
@@ -102,62 +117,3 @@ formElementAdd.addEventListener("submit", (evt) => {
   formElementAdd.reset();
 });
 
-const hideInputError = (validaitionConfig, inputElement) => {
-  const errorElement = document.querySelector(`.${inputElement.id}-error`);
-  errorElement.textContent = "";
-  inputElement.classList.remove(validaitionConfig.inputErrorClass);
-};
-
-const showInputError = (validaitionConfig, inputElement) => {
-  const errorElement = document.querySelector(`.${inputElement.id}-error`);
-  errorElement.textContent = inputElement.validationMessage;
-  inputElement.classList.add(validaitionConfig.inputErrorClass);
-};
-const FormSubmitButtonChangeState = (formElement, buttonState) => {
-  if (!formElement.checkValidity()) {
-    buttonState.setAttribute("disabled", true);
-    buttonState.classList.add("popup__button_inactive");
-  } else {
-    buttonState.removeAttribute("disabled", true);
-    buttonState.classList.remove("popup__button_inactive");
-  }
-};
-const validateInput = (validaitionConfig, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(validaitionConfig, inputElement);
-  } else {
-    hideInputError(validaitionConfig, inputElement);
-  }
-};
-const setEventListeners = (formElement, validaitionConfig) => {
-  const inputList = formElement.querySelectorAll(
-    validaitionConfig.inputSelector
-  );
-  const buttonState = formElement.querySelector(
-    validaitionConfig.submitButtonSelector
-  );
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", () => {
-      validateInput(validaitionConfig, inputElement);
-      FormSubmitButtonChangeState(formElement, buttonState);
-    });
-  });
-};
-const enableValidation = (validaitionConfig) => {
-  const formList = document.querySelectorAll(validaitionConfig.formSelector);
-  formList.forEach((popupForm) => {
-    setEventListeners(popupForm, validaitionConfig);
-    popupForm.addEventListener("submit", (evt) => {
-      evt.preventDefault;
-    });
-  });
-};
-
-enableValidation({
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_inactive",
-  inputErrorClass: "popup__input_invalid",
-  errorClass: "error",
-});
