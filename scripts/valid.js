@@ -18,13 +18,19 @@ const showInputError = (validaitionConfig, inputElement) => {
   errorElement.textContent = inputElement.validationMessage;
   inputElement.classList.add(validaitionConfig.inputErrorClass);
 };
-const formSubmitButtonChangeState = (formElement, buttonState) => {
+const removeDisabledButtonState = (validaitionConfig, buttonState) => {
+  buttonState.removeAttribute("disabled", true);
+  buttonState.classList.remove(validaitionConfig.inactiveButtonClass);
+}
+const addDisabledButtonState = (validaitionConfig, buttonState) => {
+  buttonState.setAttribute("disabled", true);
+  buttonState.classList.add(validaitionConfig.inactiveButtonClass);
+}
+const toggleButtonState = (formElement, validaitionConfig, buttonState) => {
   if (!formElement.checkValidity()) {
-    buttonState.setAttribute("disabled", true);
-    buttonState.classList.add("popup__button_inactive");
+    addDisabledButtonState(validaitionConfig, buttonState);
   } else {
-    buttonState.removeAttribute("disabled", true);
-    buttonState.classList.remove("popup__button_inactive");
+    removeDisabledButtonState(validaitionConfig, buttonState);
   }
 };
 const validateInput = (validaitionConfig, inputElement) => {
@@ -44,7 +50,7 @@ const setEventListeners = (formElement, validaitionConfig) => {
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       validateInput(validaitionConfig, inputElement);
-      formSubmitButtonChangeState(formElement, buttonState);
+      toggleButtonState(formElement, validaitionConfig, buttonState);
     });
   });
 };
