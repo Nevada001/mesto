@@ -1,5 +1,5 @@
 const buttonOpenEditProfilePopup = document.querySelector(".profile__button-edit");
-const popupOpened = document.querySelector('.popup_opened')
+const popupList = document.querySelectorAll('.popup');
 const popupEditProfile = document.querySelector(".popup_edit");
 const buttonCloseAddCardForm = document.getElementById("addclose");
 const buttonCloseEditProfilePopup = document.getElementById("editclose");
@@ -23,9 +23,22 @@ const buttonSaveEditForm = popupEditProfile.querySelector(".popup__button");
 const buttonFormAddCardStartState = document.querySelector("#buttonCreate");
 const popupAddInputs = popupAdd.querySelectorAll(enableValidationObject.inputSelector);
 
+function closePopupOnEsc(evt) {
+  if(evt.key === "Escape") {
+      closePopup(document.querySelector('.popup_opened'))
+    };
+  };
+
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
+  document.removeEventListener('keydown', closePopupOnEsc)
+}  
 function displayPopup(popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener('keydown', closePopupOnEsc);
 }
+
+
 
 function displayPopupEdit() {
   displayPopup(popupEditProfile);
@@ -41,9 +54,6 @@ function displayPopupEdit() {
 
 buttonOpenEditProfilePopup.addEventListener("click", displayPopupEdit);
 
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-}
 
 function submitFormEditProfile(evt) {
   evt.preventDefault();
@@ -65,7 +75,7 @@ function createCards(name, link) {
     card.remove();
   });
   card.querySelector(".card__image").addEventListener("click", () => {
-    popupImage.classList.toggle("popup_opened");
+    displayPopup(popupImage);
     popupTitleName.textContent = name;
     popupPicture.src = link;
     popupPicture.alt = name;
@@ -77,11 +87,7 @@ function addOrRemoveKeyCloseOnEsc() {
     document.addEventListener('keydown', closePopupOnEsc);
   }
 }
-function closePopupOnEsc(evt) {
-    if ( evt.key === 'Escape') {
-    closePopup(popup);
-    };
-  };  
+
 
 document.querySelectorAll(".popup").forEach((el) => {
   el.addEventListener("mousedown", (evt) => {
@@ -102,7 +108,7 @@ buttonOpenAddCardForm.addEventListener("click", () => {
     validateInput(enableValidationObject, el)
   });
     });
-    addDisabledButtonState(enableValidationObject, buttonFormAddCardStartState);
+addDisabledButtonState(enableValidationObject, buttonFormAddCardStartState);    
 
 
 initialCards.forEach((item) => {
