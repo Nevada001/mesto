@@ -38,8 +38,6 @@ function displayPopup(popup) {
   document.addEventListener('keydown', closePopupOnEsc);
 }
 
-
-
 function displayPopupEdit() {
   displayPopup(popupEditProfile);
   nameInput.value = profName.textContent;
@@ -49,7 +47,7 @@ function displayPopupEdit() {
     .forEach((el) => {
       hideInputError(enableValidationObject, el);
     });
-    removeDisabledButtonState(enableValidationObject, buttonSaveEditForm)
+    removeDisabledButtonState(enableValidationObject, buttonSaveEditForm);
 }
 
 buttonOpenEditProfilePopup.addEventListener("click", displayPopupEdit);
