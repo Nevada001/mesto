@@ -1,10 +1,11 @@
-const enableValidationObject = {  formSelector: ".popup__form",
-inputSelector: ".popup__input",
-submitButtonSelector: ".popup__button",
-inactiveButtonClass: "popup__button_inactive",
-inputErrorClass: "popup__input_invalid",
-errorClass: "error"
-}
+const enableValidationObject = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_inactive",
+  inputErrorClass: "popup__input_invalid",
+  errorClass: "error",
+};
 
 const hideInputError = (validaitionConfig, inputElement) => {
   const errorElement = document.querySelector(`.${inputElement.id}-error`);
@@ -17,7 +18,7 @@ const showInputError = (validaitionConfig, inputElement) => {
   errorElement.textContent = inputElement.validationMessage;
   inputElement.classList.add(validaitionConfig.inputErrorClass);
 };
-const FormSubmitButtonChangeState = (formElement, buttonState) => {
+const formSubmitButtonChangeState = (formElement, buttonState) => {
   if (!formElement.checkValidity()) {
     buttonState.setAttribute("disabled", true);
     buttonState.classList.add("popup__button_inactive");
@@ -43,7 +44,7 @@ const setEventListeners = (formElement, validaitionConfig) => {
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       validateInput(validaitionConfig, inputElement);
-      FormSubmitButtonChangeState(formElement, buttonState);
+      formSubmitButtonChangeState(formElement, buttonState);
     });
   });
 };
@@ -57,5 +58,4 @@ const enableValidation = (validaitionConfig) => {
   });
 };
 
-enableValidation (enableValidationObject
-);
+enableValidation(enableValidationObject);

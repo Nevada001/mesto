@@ -28,13 +28,15 @@ function displayPopup(popup) {
 
 function displayPopupEdit() {
   displayPopup(popupEditProfile);
-  const buttonSaveEditForm = popupEditProfile.querySelector('.popup__button');
+  const buttonSaveEditForm = popupEditProfile.querySelector(".popup__button");
   nameInput.value = profName.textContent;
   jobInput.value = proffesion.textContent;
-  popupEditProfile.querySelectorAll(enableValidationObject.inputSelector).forEach((el) => {
-    hideInputError(enableValidationObject.inputErrorClass, el);
-    buttonSaveEditForm.removeAttribute("disabled", true);
-    buttonSaveEditForm.classList.remove("popup__button_inactive");
+  popupEditProfile
+    .querySelectorAll(enableValidationObject.inputSelector)
+    .forEach((el) => {
+      hideInputError(enableValidationObject, el);
+      buttonSaveEditForm.removeAttribute("disabled", true);
+      buttonSaveEditForm.classList.remove("popup__button_inactive");
     });
 }
 
@@ -50,8 +52,6 @@ function submitFormEditProfile(evt) {
   proffesion.textContent = jobInput.value;
   closePopup(popupEditProfile);
 }
-
-  
 
 function createCards(name, link) {
   const card = items.querySelector(".card").cloneNode(true);
@@ -84,7 +84,10 @@ document.addEventListener("keydown", (evt) => {
 
 document.querySelectorAll(".popup").forEach((el) => {
   el.addEventListener("mousedown", (evt) => {
-    if (evt.target.classList.contains("popup_opened") || evt.target.classList.contains("popup__closed")) {
+    if (
+      evt.target.classList.contains("popup_opened") ||
+      evt.target.classList.contains("popup__closed")
+    ) {
       closePopup(el);
     }
   });
@@ -95,13 +98,20 @@ formEditProfile.addEventListener("submit", submitFormEditProfile);
 buttonOpenAddCardForm.addEventListener("click", () => {
   displayPopup(popupAdd);
   const buttonFormAddCardStartState = document.querySelector("#buttonCreate");
-  const popupAddInputs = popupAdd.querySelectorAll(enableValidationObject.inputSelector);
+  const popupAddInputs = popupAdd.querySelectorAll(
+    enableValidationObject.inputSelector
+  );
   popupAddInputs.forEach((el) => {
-    if (!el.checkValidity()) {  
+    if (!el.checkValidity()) {
       buttonFormAddCardStartState.classList.add("popup__button_inactive");
-      buttonFormAddCardStartState.setAttribute('disabled', true);
-      }
-  })
+      buttonFormAddCardStartState.setAttribute("disabled", true);
+    }
+  });
+  popupAdd
+    .querySelectorAll(enableValidationObject.inputSelector)
+    .forEach((el) => {
+      showInputError(enableValidationObject, el);
+    });
 });
 
 initialCards.forEach((item) => {
@@ -116,4 +126,3 @@ formElementAdd.addEventListener("submit", (evt) => {
   closePopup(popupAdd);
   formElementAdd.reset();
 });
-
