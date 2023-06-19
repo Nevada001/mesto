@@ -1,3 +1,4 @@
+
 const buttonOpenEditProfilePopup = document.querySelector(
   ".profile__button-edit"
 );
@@ -63,10 +64,21 @@ function submitFormEditProfile(evt) {
   closePopup(popupEditProfile);
 }
 
-class Card {
-  constructor(data, templateSelector) {
-    this._name = data.name;
-    this._link = data.link;
+
+
+document.querySelectorAll(".popup").forEach((el) => {
+  el.addEventListener("mousedown", (evt) => {
+    if (
+      evt.target.classList.contains("popup_opened") ||
+      evt.target.classList.contains("popup__closed")
+    ) {
+      closePopup(el);
+    }
+  });
+});
+
+ class Card {
+  constructor(templateSelector) {
     this._templateSelector = templateSelector;
   }
 
@@ -77,18 +89,34 @@ class Card {
       .cloneNode(true);
     return cardElement;
   }
+
+  generateCard() {
+    this._element = this._getTemplate();
+    this._setEventListeners();
+    const cardItem = this._element.querySelector(".card__image");
+    cardItem.src = this._link;
+    cardItem.textContent = this._name;
+    this._element.querySelector(".card__name").textContent = this._name;
+
+    return this._element;
+  }
+
   _setEventListeners() {
     this._element
       .querySelector(".card__heart")
       .addEventListener("click", (evt) => {
         this._toggleLikeButtonState(evt);
       });
-    this._element.querySelector('.card__image').addEventListener('click', () => {
-      this._handleOpenPopup();
-    });
-    this._element.querySelector('.card__delete').addEventListener('click', () => {
-      this._removeCard();
-    })
+    this._element
+      .querySelector(".card__image")
+      .addEventListener("click", () => {
+        this._handleOpenPopup();
+      });
+    this._element
+      .querySelector(".card__delete")
+      .addEventListener("click", () => {
+        this._removeCard();
+      });
   }
 
   _removeCard() {
@@ -103,34 +131,27 @@ class Card {
   _toggleLikeButtonState(evt) {
     evt.target.classList.toggle("card__heart_active");
   }
+}
 
-  generateCard() {
-    this._element = this._getTemplate();
-    this._setEventListeners();
-    const cardItem = this._element.querySelector(".card__image");
-    cardItem.src = this._link;
-    cardItem.textContent = this._name;
-    this._element.querySelector(".card__name").textContent = this._name;
-
-    return this._element;
+ class DefaultCard extends Card {
+  constructor(data, templateSelector) {
+    super(templateSelector);
+    this._name = data.name;
+    this._link = data.link;
+  }
+}
+ class NewAddedCard extends Card {
+  constructor(name, link, templateSelector) {
+    super(templateSelector);
+    this._name = name.value;
+    this._link = link.value;
   }
 }
 
 initialCards.forEach((item) => {
-  const card = new Card(item, "#item");
+  const card = new DefaultCard(item, "#item");
   const cardElement = card.generateCard();
   cardsContainer.append(cardElement);
-});
-
-document.querySelectorAll(".popup").forEach((el) => {
-  el.addEventListener("mousedown", (evt) => {
-    if (
-      evt.target.classList.contains("popup_opened") ||
-      evt.target.classList.contains("popup__closed")
-    ) {
-      closePopup(el);
-    }
-  });
 });
 
 formEditProfile.addEventListener("submit", submitFormEditProfile);
@@ -145,9 +166,11 @@ buttonOpenAddCardForm.addEventListener("click", () => {
 
 formElementAdd.addEventListener("submit", (evt) => {
   evt.preventDefault();
-  cardsContainer.prepend(
-    createCards(placeNameInput.value, pictureLinkInput.value)
-  );
+  const card = new NewAddedCard(placeNameInput, pictureLinkInput, "#item");
+  const cardElement = card.generateCard();
+  cardsContainer.prepend(cardElement);
   closePopup(popupAdd);
   formElementAdd.reset();
 });
+
+

@@ -1,3 +1,4 @@
+
 const enableValidationObject = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -7,6 +8,9 @@ const enableValidationObject = {
   errorClass: "error",
 };
 
+class FormValidator {
+  constructor(validaitionConfig, )
+}
 const hideInputError = (validaitionConfig, inputElement) => {
   const errorElement = document.querySelector(`.${inputElement.id}-error`);
   errorElement.textContent = "";
