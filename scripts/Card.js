@@ -1,6 +1,8 @@
- class Card {
-  constructor(templateSelector) {
+export class Card {
+  constructor(data, templateSelector) {
     this._templateSelector = templateSelector;
+    this._name = data.name;
+    this._link = data.link;
   }
 
   _getTemplate() {
@@ -11,15 +13,22 @@
     return cardElement;
   }
 
+  createCard() {
+
+  }
   generateCard() {
     this._element = this._getTemplate();
+    this._cardItem = this._element.querySelector(".card__image");
     this._setEventListeners();
-    const cardItem = this._element.querySelector(".card__image");
-    cardItem.src = this._link;
-    cardItem.textContent = this._name;
+    this._cardItem.src = this._link;
+    this._cardItem.alt = this._name;
     this._element.querySelector(".card__name").textContent = this._name;
 
     return this._element;
+  }
+
+  createCard(name, link) {
+    
   }
 
   _setEventListeners() {
@@ -47,27 +56,12 @@
     const popupImage = document.querySelector(".popup_image");
     const popupTitleName = popupImage.querySelector(".popup__name");
     const popupPicture = popupImage.querySelector(".popup__picture");
-    document.querySelector('.popup_image').classList.add('popup_opened');
+    document.querySelector(".popup_image").classList.add("popup_opened");
     popupTitleName.textContent = this._name;
     popupPicture.src = this._link;
     popupPicture.alt = this._name;
   }
   _toggleLikeButtonState(evt) {
     evt.target.classList.toggle("card__heart_active");
-  }
-}
-
-export class DefaultCard extends Card {
-  constructor(data, templateSelector) {
-    super(templateSelector);
-    this._name = data.name;
-    this._link = data.link;
-  }
-}
-export class NewAddedCard extends Card {
-  constructor(name, link, templateSelector) {
-    super(templateSelector);
-    this._name = name.value;
-    this._link = link.value;
   }
 }

@@ -31,5 +31,5 @@ export const enableValidationObject = {
   submitButtonSelector: ".popup__button",
   inactiveButtonClass: "popup__button_inactive",
   inputErrorClass: "popup__input_invalid",
-  errorClass: "error",
+  errorClass: "error"
 };
