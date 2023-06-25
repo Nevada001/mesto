@@ -1,8 +1,9 @@
-export class Card {
-  constructor(data, templateSelector) {
+export class Card { 
+  constructor(data, templateSelector, handleOpenPopup) {
     this._templateSelector = templateSelector;
     this._name = data.name;
     this._link = data.link;
+    this._handleOpenPopup = handleOpenPopup;
   }
 
   _getTemplate() {
@@ -13,9 +14,6 @@ export class Card {
     return cardElement;
   }
 
-  createCard() {
-
-  }
   generateCard() {
     this._element = this._getTemplate();
     this._cardItem = this._element.querySelector(".card__image");
@@ -27,10 +25,6 @@ export class Card {
     return this._element;
   }
 
-  createCard(name, link) {
-    
-  }
-
   _setEventListeners() {
     this._element
       .querySelector(".card__heart")
@@ -40,7 +34,7 @@ export class Card {
     this._element
       .querySelector(".card__image")
       .addEventListener("click", () => {
-        this._handleOpenPopup();
+        this._openPopupImage();
       });
     this._element
       .querySelector(".card__delete")
@@ -49,18 +43,14 @@ export class Card {
       });
   }
 
+  _openPopupImage() {
+    this._handleOpenPopup(this._name, this._link)
+  }
+
   _removeCard() {
     this._element.remove();
   }
-  _handleOpenPopup() {
-    const popupImage = document.querySelector(".popup_image");
-    const popupTitleName = popupImage.querySelector(".popup__name");
-    const popupPicture = popupImage.querySelector(".popup__picture");
-    document.querySelector(".popup_image").classList.add("popup_opened");
-    popupTitleName.textContent = this._name;
-    popupPicture.src = this._link;
-    popupPicture.alt = this._name;
-  }
+
   _toggleLikeButtonState(evt) {
     evt.target.classList.toggle("card__heart_active");
   }
