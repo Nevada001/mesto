@@ -71,6 +71,8 @@ popupList.forEach((el) => {
   });
 });
 
+
+
 initialCards.forEach((item) => {
   cardsContainer.append(createCard(item));
 });
