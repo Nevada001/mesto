@@ -1,11 +1,11 @@
-import { initialCards, enableValidationObject} from "./constants.js";
+import { initialCards, enableValidationObject } from "./constants.js";
 import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
 const buttonOpenEditProfilePopup = document.querySelector(
   ".profile__button-edit"
 );
 const popupList = document.querySelectorAll(".popup");
-const popupImage = document.querySelector(".popup_image")
+const popupImage = document.querySelector(".popup_image");
 const popupEditProfile = document.querySelector(".popup_edit");
 const formEditProfile = document.querySelector(".popup__form_type_edit");
 const formElementAdd = document.querySelector(".popup__form_type_add");
@@ -18,7 +18,7 @@ const buttonOpenAddCardForm = document.querySelector(".profile__button-add");
 const cardsContainer = document.querySelector(".cards");
 const placeNameInput = document.querySelector("#placeName");
 const linkInput = document.querySelector("#link");
-const popupPicture = popupImage.querySelector(".popup__picture")
+const popupPicture = popupImage.querySelector(".popup__picture");
 
 function closePopupOnEsc(evt) {
   if (evt.key === "Escape") {
@@ -52,8 +52,14 @@ function handleOpenPopup(name, link) {
   displayPopup(popupImage);
   popupPicture.src = link;
   popupPicture.alt = name;
-  popupImage.querySelector('.popup__name').textContent = name;
+  popupImage.querySelector(".popup__name").textContent = name;
 }
+
+function createCard(obj) {
+  const card = new Card(obj, "#item", handleOpenPopup);
+  return card.generateCard();
+}
+
 popupList.forEach((el) => {
   el.addEventListener("mousedown", (evt) => {
     if (
@@ -66,20 +72,16 @@ popupList.forEach((el) => {
 });
 
 initialCards.forEach((item) => {
-  const card = new Card(item, "#item", handleOpenPopup);
-  const cardElement = card.generateCard();
-  cardsContainer.append(cardElement);
+  cardsContainer.append(createCard(item));
 });
 
 formElementAdd.addEventListener("submit", (evt) => {
   evt.preventDefault();
   const newCardData = {
     name: placeNameInput.value,
-    link: linkInput.value
-  }
-  const card = new Card(newCardData, "#item", handleOpenPopup);
-  const cardElement = card.generateCard();
-  cardsContainer.prepend(cardElement);
+    link: linkInput.value,
+  };
+  cardsContainer.prepend(createCard(newCardData));
   closePopup(popupAdd);
   formElementAdd.reset();
 });
@@ -96,7 +98,7 @@ buttonOpenAddCardForm.addEventListener("click", () => {
   displayPopup(popupAdd);
   popupAddValidator.resetValidationState();
   popupAddValidator.toggleButtonState();
-})
+});
 
 const popupEditValidator = new FormValidator(
   enableValidationObject,
@@ -108,4 +110,3 @@ const popupAddValidator = new FormValidator(
   formElementAdd
 );
 popupAddValidator.enableValidation();
-

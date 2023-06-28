@@ -21,9 +21,10 @@ export class Card {
     this._cardItem.src = this._link;
     this._cardItem.alt = this._name;
     this._element.querySelector(".card__name").textContent = this._name;
-
+    
     return this._element;
   }
+  
 
   _setEventListeners() {
     this._element
@@ -55,3 +56,4 @@ export class Card {
     evt.target.classList.toggle("card__heart_active");
   }
 }
+
