@@ -2,6 +2,7 @@ import { initialCards, enableValidationObject } from "./constants.js";
 import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
 import Section from "./Section.js";
+import Popup from "./Popup.js";
 const buttonOpenEditProfilePopup = document.querySelector(
   ".profile__button-edit")
 
@@ -20,7 +21,7 @@ const cardsContainer = document.querySelector(".cards");
 const placeNameInput = document.querySelector("#placeName");
 const linkInput = document.querySelector("#link");
 const popupPicture = popupImage.querySelector(".popup__picture");
-
+/*
 function closePopupOnEsc(evt) {
   if (evt.key === "Escape") {
     closePopup(document.querySelector(".popup_opened"));
@@ -36,17 +37,12 @@ function displayPopup(popup) {
   document.addEventListener("keydown", closePopupOnEsc);
 }
 
-function displayPopupEdit() {
-  displayPopup(popupEditProfile);
-  nameInput.value = profName.textContent;
-  jobInput.value = proffesion.textContent;
-}
-
+*/
 function submitFormEditProfile(evt) {
   evt.preventDefault();
   profName.textContent = nameInput.value;
   proffesion.textContent = jobInput.value;
-  closePopup(popupEditProfile);
+  popupEdit.close();
 }
 
 function handleOpenPopup(name, link) {
@@ -60,18 +56,14 @@ function createCard(data) {
   const card = new Card(data, "#item", handleOpenPopup);
   return card.generateCard();
 }
-
-popupList.forEach((el) => {
-  el.addEventListener("mousedown", (evt) => {
-    if (
-      evt.target.classList.contains("popup_opened") ||
-      evt.target.classList.contains("popup__closed")
-    ) {
-      closePopup(el);
-    }
-  });
-});
-
+const popupEdit = new Popup(popupEditProfile);
+buttonOpenEditProfilePopup.addEventListener('click', () => {
+  popupEdit.open();
+  popupEdit.setEventListeners();
+  nameInput.value = profName.textContent;
+  jobInput.value = proffesion.textContent;
+}
+);
 
 const initialCardsAdded = new Section ({ items: initialCards, 
   renderer: (item) => {
@@ -97,12 +89,6 @@ formElementAdd.addEventListener("submit", (evt) => {
 });
 
 formEditProfile.addEventListener("submit", submitFormEditProfile);
-
-buttonOpenEditProfilePopup.addEventListener("click", () => {
-  displayPopupEdit();
-  popupEditValidator.resetValidationState();
-  popupEditValidator.toggleButtonState();
-});
 
 buttonOpenAddCardForm.addEventListener("click", () => {
   displayPopup(popupAdd);
