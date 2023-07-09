@@ -20,11 +20,10 @@ const buttonOpenAddCardForm = document.querySelector(".profile__button-add");
 const cardsContainer = document.querySelector(".cards");
 const placeNameInput = document.querySelector("#placeName");
 const linkInput = document.querySelector("#link");
-const popupPicture = popupImage.querySelector(".popup__picture");
 
 function handleCardClick(name, link) {
   const popupImageOpened = new PopupWithImage(popupImage);
-  popupPicture.addEventListener("click", popupImageOpened.open(name, link));
+  popupImageOpened.open(name, link);
   popupImageOpened.setEventListeners();
 }
 
