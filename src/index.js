@@ -1,3 +1,4 @@
+import '../src/index.css'
 import { initialCards, enableValidationObject } from "./constants.js";
 import FormValidator  from "./FormValidator.js";
 import Card from "./Card.js";
