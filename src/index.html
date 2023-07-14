@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
+  <link href="./pages/index.css" rel="stylesheet">
 </head>
 
 <body class="root">
@@ -59,7 +60,8 @@
       <button type="reset" class="popup__closed" id="addclose"></button>
       <form class="popup__form popup__form_type_add" name="form" novalidate>
         <h2 class="popup__title">Новое место</h2>
-        <input class="popup__input" minlength="2" maxlength="30" placeholder="Название" type="text" name="input" id="placeName" required>
+        <input class="popup__input" minlength="2" maxlength="30" placeholder="Название" type="text" 
+        name="input" id="placeName" required>
         <span class="error placeName-error" ></span>
         <input class="popup__input" type="url" placeholder="Ссылка на картинку"  name="input"
           id="link" required>
@@ -75,5 +77,6 @@
         <p class="popup__name"></p>
       </div>
     </div> 
+<script src="./pages/index.js" type="module"></script>
 </body>
 </html>
