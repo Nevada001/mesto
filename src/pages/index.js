@@ -1,4 +1,4 @@
-import '../src/index.css';
+import './index.css';
 import { initialCards, enableValidationObject } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
