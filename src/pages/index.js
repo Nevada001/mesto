@@ -1,4 +1,5 @@
-import './index.css';
+//import './index.css';
+import Api from "../components/Api.js";
 import { initialCards, enableValidationObject } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
@@ -22,6 +23,30 @@ function handleCardClick(name, link) {
   popupImageOpened.open(name, link);
 }
 
+ const api =  new Api({
+  baseUrl:'https://nomoreparties.co/v1/cohort-71', 
+  method: 'GET',
+  headers: {
+    authorization:'7b17248a-4f40-4b14-bba1-0f66717e7e72',
+    'Content-Type' : 'application/json'
+  }
+})
+
+const userInfo = new UserInfo({
+  name: ".profile__title",
+  about: ".profile__info-text",
+});
+
+Promise.all([api.getUserInfo()])
+  .then(([data]) => {
+    userInfo.setUserInfo(data.name, data.about);
+  })
+
+  .catch((err) => {
+    console.log(`bad ${err}`)
+  })
+
+
 function createCard(data) {
   const card = new Card(data, "#item", handleCardClick);
   return card.generateCard();
@@ -38,14 +63,11 @@ function submitFormAdd(formValues) {
 function submitFormEditProfile(formValues) {
   userInfo.setUserInfo({
     name: formValues.userName,
-    info: formValues.userInfo,
-  });
+    about: formValues.userInfo,
+ });
   formEditProfileChanged.close();
 }
-const userInfo = new UserInfo({
-  userNameSelector: ".profile__title",
-  userInfoSelector: ".profile__info-text",
-});
+
 const formEditProfileChanged = new PopupWithForm(
   submitFormEditProfile,
   ".popup_edit"
@@ -54,9 +76,9 @@ formEditProfileChanged.setEventListeners();
 buttonOpenEditProfilePopup.addEventListener("click", () => {
   formEditProfileChanged.open();
   popupEditValidator.resetValidationState();
-  const userData = userInfo.getUserInfo();
-  nameInput.value = userData.name;
-  profInput.value = userData.info;
+  //const userData = userInfo.getUserInfo();
+  //nameInput.value = userData.name;
+  //profInput.value = userData.info;
 });
 
 const formElementAddDone = new PopupWithForm(submitFormAdd, ".popup_add");
