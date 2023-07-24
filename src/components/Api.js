@@ -17,13 +17,36 @@ export default class Api {
       headers: this._headers
     })
       .then(this._validateRes.bind(this))
-
-      .then((data) => {
-        return data
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`)
       })
+  }
+
+  getInitialCards() {
+    return fetch(`${this._baseUrl}/cards`, {headers: this._headers})
+      .then(this._validateRes.bind(this))
 
       .catch((err) => {
         console.log(`Ошибка: ${err}`)
       })
+  }
+
+  setUserInfo(newName, newAbout) {
+    return fetch(`${this._baseUrl}/users/me`, 
+    {
+      method: 'PATCH', 
+      headers: this._headers,
+      body: JSON.stringify({
+        name: newName,
+        about: newAbout
+      })
+    })
+
+      .then(this._validateRes.bind(this))
+
+
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`)
+    })
   }
 }

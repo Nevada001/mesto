@@ -38,9 +38,37 @@ const userInfo = new UserInfo({
   avatar: ".profile__avatar"
 });
 
-Promise.all([api.getUserInfo()])
-  .then(([userData]) => {
-    userInfo.setUserInfo(userData);
+function submitFormEditProfile(formValues) {
+  userInfo.setUserInfo({
+    name: formValues.userName,
+    about: formValues.userInfo,
+ });
+  
+}
+
+formEditProfile.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  userInfo.setUserInfo({
+    name: nameInput.value,
+    about: profInput.value
+  });
+  api.setUserInfo(nameInput.value, profInput.value);
+  formEditProfileChanged.close();
+})
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cardData]) => {
+    const cardsList = new Section(
+      {
+        items: cardData,
+        renderer: (item) => {
+          cardsList.addItem(createCard(item));
+        },
+      },
+      ".cards"
+    );
+    cardsList.rendererItems();
+    userInfo.setUserInfo(userData)
   })
 
   .catch((err) => {
@@ -61,25 +89,14 @@ function submitFormAdd(formValues) {
   cardsList.addItem(createCard(newCardData));
 }
 
-function submitFormEditProfile(formValues) {
-  userInfo.setUserInfo({
-    name: formValues.userName,
-    about: formValues.userInfo,
- });
-  formEditProfileChanged.close();
-}
-
 const formEditProfileChanged = new PopupWithForm(
   submitFormEditProfile,
   ".popup_edit"
 );
-formEditProfileChanged.setEventListeners();
+
 buttonOpenEditProfilePopup.addEventListener("click", () => {
   formEditProfileChanged.open();
   popupEditValidator.resetValidationState();
-  //const userData = userInfo.getUserInfo();
-  //nameInput.value = userData.name;
-  //profInput.value = userData.info;
 });
 
 const formElementAddDone = new PopupWithForm(submitFormAdd, ".popup_add");
@@ -90,16 +107,7 @@ buttonOpenAddCardForm.addEventListener("click", () => {
   popupAddValidator.toggleButtonState();
 });
 
-const cardsList = new Section(
-  {
-    items: initialCards.reverse(),
-    renderer: (item) => {
-      cardsList.addItem(createCard(item));
-    },
-  },
-  ".cards"
-);
-cardsList.rendererItems();
+
 
 const popupEditValidator = new FormValidator(
   enableValidationObject,
