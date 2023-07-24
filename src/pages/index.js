@@ -35,11 +35,12 @@ function handleCardClick(name, link) {
 const userInfo = new UserInfo({
   name: ".profile__title",
   about: ".profile__info-text",
+  avatar: ".profile__avatar"
 });
 
 Promise.all([api.getUserInfo()])
-  .then(([data]) => {
-    userInfo.setUserInfo(data.name, data.about);
+  .then(([userData]) => {
+    userInfo.setUserInfo(userData);
   })
 
   .catch((err) => {
