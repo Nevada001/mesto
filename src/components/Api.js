@@ -1,4 +1,3 @@
-
 export default class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -31,19 +30,36 @@ export default class Api {
       })
   }
 
-  setUserInfo(newName, newAbout) {
+  setUserInfo(name, about) {
     return fetch(`${this._baseUrl}/users/me`, 
     {
       method: 'PATCH', 
       headers: this._headers,
       body: JSON.stringify({
-        name: newName,
-        about: newAbout
+        name: name,
+        about: about
       })
     })
 
-      .then(this._validateRes.bind(this))
+    .then(this._validateRes.bind(this))
 
+
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`)
+    })
+  }
+
+  addNewCard(name, link) {
+    return fetch(`${this._baseUrl}/cards`, 
+    {
+      method: 'POST', 
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        link: link,
+      })
+    })
+    .then(this._validateRes.bind(this))
 
     .catch((err) => {
       console.log(`Ошибка: ${err}`)

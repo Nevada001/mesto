@@ -23,38 +23,32 @@ function handleCardClick(name, link) {
   popupImageOpened.open(name, link);
 }
 
- const api =  new Api({
-  baseUrl:'https://nomoreparties.co/v1/cohort-71', 
-  method: 'GET',
+const api = new Api({
+  baseUrl: "https://nomoreparties.co/v1/cohort-71",
   headers: {
-    authorization:'7b17248a-4f40-4b14-bba1-0f66717e7e72',
-    'Content-Type' : 'application/json'
-  }
-})
+    authorization: "7b17248a-4f40-4b14-bba1-0f66717e7e72",
+    "Content-Type": "application/json",
+  },
+});
 
 const userInfo = new UserInfo({
   name: ".profile__title",
   about: ".profile__info-text",
-  avatar: ".profile__avatar"
+  avatar: ".profile__avatar",
 });
 
 function submitFormEditProfile(formValues) {
-  userInfo.setUserInfo({
-    name: formValues.userName,
-    about: formValues.userInfo,
- });
-  
-}
+  api
+    .setUserInfo(formValues.userName, formValues.userInfo)
+    .then((userData) => {
+      userInfo.setUserInfo(userData);
+    })
 
-formEditProfile.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  userInfo.setUserInfo({
-    name: nameInput.value,
-    about: profInput.value
-  });
-  api.setUserInfo(nameInput.value, profInput.value);
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+    });
   formEditProfileChanged.close();
-})
+}
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cardData]) => {
@@ -68,13 +62,12 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       ".cards"
     );
     cardsList.rendererItems();
-    userInfo.setUserInfo(userData)
+    userInfo.setUserInfo(userData);
   })
 
   .catch((err) => {
-    console.log(`bad ${err}`)
-  })
-
+    console.log(`bad ${err}`);
+  });
 
 function createCard(data) {
   const card = new Card(data, "#item", handleCardClick);
@@ -82,18 +75,26 @@ function createCard(data) {
 }
 
 function submitFormAdd(formValues) {
-  const newCardData = {
-    name: formValues.placeName,
-    link: formValues.link,
-  };
-  cardsList.addItem(createCard(newCardData));
+  api.addNewCard(formValues.placeName, formValues.link)
+    .then((card) => {
+    const newCard = new Section(
+      {
+        items: card,
+        renderer: (item) => {
+          newCard.addItem(createCard(item));
+        },
+      },
+      ".cards"
+    );
+    newCard.addItem(createCard(card))
+  });
 }
 
 const formEditProfileChanged = new PopupWithForm(
   submitFormEditProfile,
   ".popup_edit"
 );
-
+formEditProfileChanged.setEventListeners();
 buttonOpenEditProfilePopup.addEventListener("click", () => {
   formEditProfileChanged.open();
   popupEditValidator.resetValidationState();
@@ -106,8 +107,6 @@ buttonOpenAddCardForm.addEventListener("click", () => {
   popupAddValidator.resetValidationState();
   popupAddValidator.toggleButtonState();
 });
-
-
 
 const popupEditValidator = new FormValidator(
   enableValidationObject,
