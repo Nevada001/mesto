@@ -1,21 +1,23 @@
 //import './index.css';
 import Api from "../components/Api.js";
-import { initialCards, enableValidationObject } from "../utils/constants.js";
+import { enableValidationObject } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 const buttonOpenEditProfilePopup = document.querySelector(
   ".profile__button-edit"
 );
+const buttonDeleteCard = document.querySelector(".card__delete");
+
 const formEditProfile = document.querySelector(".popup__form_type_edit");
 const nameInput = document.querySelector("#userName");
 const profInput = document.querySelector("#userInfo");
 const formElementAdd = document.querySelector(".popup__form_type_add");
 const buttonOpenAddCardForm = document.querySelector(".profile__button-add");
-
 const popupImageOpened = new PopupWithImage(".popup_image");
 
 popupImageOpened.setEventListeners();
@@ -50,44 +52,93 @@ function submitFormEditProfile(formValues) {
   formEditProfileChanged.close();
 }
 
+let currentUser;
+let cardList;
+
+function handleCardDelete(cardItem, cardElement) {
+  api
+    .removeCard(cardItem)
+    .then(() => {
+      cardList.deleteCard(cardElement);
+      popupWithConfirmation.close();
+    })
+    .catch((err) => {
+      console.log(`bad ${err}`);
+    });
+}
+
+const popupWithConfirmation = new PopupWithConfirmation(
+  handleCardDelete,
+  ".popup_delete"
+);
+popupWithConfirmation.setEventListeners();
+
+function createCard(cardItem) {
+  const card = new Card(cardItem, "#item", currentUser, handleCardClick, {
+    handleCardLike: (cardItem) => {
+      api
+        .addLike(cardItem)
+        .then((res) => {
+          card.cardLikeCounter(res);
+        })
+        .catch((err) => {
+          console.log(`bad ${err}`);
+        });
+    },
+    handleCardDislike: (cardItem) => {
+      api
+        .removeLike(cardItem)
+        .then((res) => {
+          card.cardLikeCounter(res);
+        })
+        .catch((err) => {
+          console.log(`bad ${err}`);
+        });
+    },
+    handleCardDelete: popupWithConfirmation.open.bind(popupWithConfirmation),
+  });
+  return card.generateCard();
+}
+
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cardData]) => {
-    const cardsList = new Section(
+    currentUser = userData._id;
+    cardList = new Section(
       {
         items: cardData,
         renderer: (item) => {
-          cardsList.addItem(createCard(item));
+          cardList.addItem(createCard(item));
         },
       },
       ".cards"
     );
-    cardsList.rendererItems();
+    cardList.rendererItems();
     userInfo.setUserInfo(userData);
   })
-
   .catch((err) => {
     console.log(`bad ${err}`);
   });
 
-function createCard(data) {
-  const card = new Card(data, "#item", handleCardClick);
-  return card.generateCard();
-}
-
 function submitFormAdd(formValues) {
-  api.addNewCard(formValues.placeName, formValues.link)
+  api
+    .addNewCard(formValues.placeName, formValues.link)
     .then((card) => {
-    const newCard = new Section(
-      {
-        items: card,
-        renderer: (item) => {
-          newCard.addItem(createCard(item));
+      console.log(card);
+      cardList = new Section(
+        {
+          items: card,
+          renderer: (item) => {
+            cardList.addItem(createCard(item));
+          },
         },
-      },
-      ".cards"
-    );
-    newCard.addItem(createCard(card))
-  });
+        ".cards"
+      );
+      cardList.addItem(createCard(card));
+    })
+
+    .catch((err) => {
+      console.log(`bad ${err}`);
+    });
 }
 
 const formEditProfileChanged = new PopupWithForm(
@@ -98,6 +149,9 @@ formEditProfileChanged.setEventListeners();
 buttonOpenEditProfilePopup.addEventListener("click", () => {
   formEditProfileChanged.open();
   popupEditValidator.resetValidationState();
+  const userData = userInfo.getUserInfo();
+  nameInput.value = userData.name;
+  profInput.value = userData.about;
 });
 
 const formElementAddDone = new PopupWithForm(submitFormAdd, ".popup_add");
