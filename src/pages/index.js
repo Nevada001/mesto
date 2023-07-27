@@ -11,18 +11,25 @@ import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 const buttonOpenEditProfilePopup = document.querySelector(
   ".profile__button-edit"
 );
-const buttonDeleteCard = document.querySelector(".card__delete");
-
+const buttomOpenFormAvatar = document.querySelector('.profile__avatar')
 const formEditProfile = document.querySelector(".popup__form_type_edit");
 const nameInput = document.querySelector("#userName");
 const profInput = document.querySelector("#userInfo");
 const formElementAdd = document.querySelector(".popup__form_type_add");
 const buttonOpenAddCardForm = document.querySelector(".profile__button-add");
+const formAvatar = document.querySelector('.popup__form_type_avatar')
 const popupImageOpened = new PopupWithImage(".popup_image");
+
 
 popupImageOpened.setEventListeners();
 function handleCardClick(name, link) {
   popupImageOpened.open(name, link);
+}
+
+function renderLoading(isLoadind, message) {
+  if(isLoadind){
+  this._buttonDeleteConfirmation.textContent = message
+  }
 }
 
 const api = new Api({
@@ -141,6 +148,25 @@ function submitFormAdd(formValues) {
     });
 }
 
+function submitNewAvatar(formValues) {
+  api.changeUserAvatar(formValues.avatarLink)
+    .then((userData) => {
+      userInfo.setUserInfo(userData);
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+    });
+  formEditProfileChanged.close();
+}
+
+const formChangeAvatar = new PopupWithForm(submitNewAvatar, ".popup_avatar-edit");
+formChangeAvatar.setEventListeners();
+buttomOpenFormAvatar.addEventListener('click', () => {
+  formChangeAvatar.open();
+  popupEditValidator.resetValidationState();
+  popupEditValidator.toggleButtonState();
+})
+
 const formEditProfileChanged = new PopupWithForm(
   submitFormEditProfile,
   ".popup_edit"
@@ -161,6 +187,10 @@ buttonOpenAddCardForm.addEventListener("click", () => {
   popupAddValidator.resetValidationState();
   popupAddValidator.toggleButtonState();
 });
+
+const popupAvatarEditValidator = new FormValidator(enableValidationObject,
+  formAvatar);
+  popupAvatarEditValidator.enableValidation();
 
 const popupEditValidator = new FormValidator(
   enableValidationObject,

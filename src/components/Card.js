@@ -35,12 +35,15 @@ export default class Card {
     if (this._likes.some((item) => item._id === this._currentUser)) {
       this._cardLike.classList.add("card__heart_active");
     }
-
     if (this._userId !== this._currentUser) {
       this._cardDeleteButton.style.display = "none";
     }
     this._setEventListeners();
     return this._element;
+  }
+
+  _renderLoading() {
+    this._cardDeleteButton.textContent = "Создание..." 
   }
 
   _setEventListeners() {
@@ -59,8 +62,11 @@ export default class Card {
       });
     this._cardDeleteButton.addEventListener("click", () => {
       this._handleCardDelete(this._data, this._element);
+      this._renderLoading();
     });
   }
+
+
 
   _checkLikeButton() {
     return this._cardLike.classList.contains("card__heart_active");
