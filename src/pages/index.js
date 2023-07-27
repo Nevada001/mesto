@@ -1,4 +1,4 @@
-import './index.css';
+//import './index.css';
 import Api from "../components/Api.js";
 import { enableValidationObject } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
@@ -26,11 +26,6 @@ function handleCardClick(name, link) {
   popupImageOpened.open(name, link);
 }
 
-function renderLoading(isLoadind, message) {
-  if(isLoadind){
-  this._buttonDeleteConfirmation.textContent = message
-  }
-}
 
 const api = new Api({
   baseUrl: "https://nomoreparties.co/v1/cohort-71",
@@ -143,11 +138,13 @@ function submitFormAdd(formValues) {
         ".cards"
       );
       cardList.addItem(createCard(card));
+      
     })
 
     .catch((err) => {
       console.log(`bad ${err}`);
     });
+    formElementAddDone.close()
 }
 
 function submitNewAvatar(formValues) {
