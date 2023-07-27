@@ -39,6 +39,7 @@
 .popup__input{border:none;border-bottom:1px solid rgba(0,0,0,.2);font-size:14px;font-weight:400;letter-spacing:0;line-height:16px;min-height:27px;text-align:left}@media screen and (max-width:560px){.popup__input:last-of-type{margin-bottom:0}}
 .popup__input_invalid{border-bottom-color:red}
 .popup__title{font-size:24px;font-weight:900;letter-spacing:0;line-height:29px;margin:0;padding:34px 0 54px;text-align:left}@media screen and (max-width:560px){.popup__title{font-size:18px;line-height:22px;padding:25px 0 75px}}
+.popup__title_type_delete{padding:34px 0 38px}
 .popup__picture{color:#fff;max-height:75vh;max-width:75vw;-o-object-fit:cover;object-fit:cover}
 .popup__image-container{position:relative}
 .error{color:red;font-size:12px;font-weight:400;letter-spacing:0;line-height:15px;margin-top:5px;min-height:30px;text-align:left}
