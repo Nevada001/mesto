@@ -42,10 +42,6 @@ export default class Card {
     return this._element;
   }
 
-  _renderLoading() {
-    this._cardDeleteButton.textContent = "Создание..." 
-  }
-
   _setEventListeners() {
     this._cardLike.addEventListener("click", () => {
       if (this._checkLikeButton()) {
@@ -62,7 +58,6 @@ export default class Card {
       });
     this._cardDeleteButton.addEventListener("click", () => {
       this._handleCardDelete(this._data, this._element);
-      this._renderLoading();
     });
   }
 

@@ -24,7 +24,7 @@ setEventListeners() {
   this._form.addEventListener("submit", evt => {
     evt.preventDefault();
     this._formSubmit(this._getInputValues());
-    //this._renderLoading();
+    this._renderLoading();
     this.close();
   });
   super.setEventListeners();

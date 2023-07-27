@@ -3,7 +3,7 @@ export default class UserInfo {
     this._userName = document.querySelector(name);
     this._userInfo = document.querySelector(about);
     this._userAvatar = document.querySelector(avatar);
-    this._buttonAvatarText = document.querySelector('#buttonSaveAvatar')
+    this._buttonAvatarText = document.querySelector('#buttonSave')
   };
 
   getUserInfo() {
@@ -13,8 +13,12 @@ export default class UserInfo {
       }        
   };
 
-  _renderLoading() {
+  renderLoading() {
     this._buttonAvatarText.textContent = "Сохранение..." 
+  }
+
+  savingData(text) {
+    this._buttonAvatarText.textContent = text; 
   }
 
   setUserInfo(userData) {
@@ -22,6 +26,5 @@ export default class UserInfo {
     this._userName.textContent = name;
     this._userInfo.textContent = about;
     this._userAvatar.src = avatar;
-    this._renderLoading();
   }
 }

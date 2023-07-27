@@ -70,8 +70,9 @@ function handleCardDelete(cardItem, cardElement) {
       popupWithConfirmation.close();
     })
     .catch((err) => {
-      console.log(`bad ${err}`);
-    });
+      console.log(`bad ${err}`)
+    })
+    .finally(() => popupWithConfirmation.savingDataText('Да'))
 }
 
 const popupWithConfirmation = new PopupWithConfirmation(
@@ -124,7 +125,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   })
   .catch((err) => {
     console.log(`bad ${err}`);
-  });
+  })
+  
 
 function submitFormAdd(formValues) {
   api
@@ -155,7 +157,8 @@ function submitNewAvatar(formValues) {
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
-    });
+    })
+    .finally(() => userInfo.savingData('Сохранить'));
   formEditProfileChanged.close();
 }
 

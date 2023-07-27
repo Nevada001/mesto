@@ -17,6 +17,7 @@ export default class PopupWithConfirmation extends Popup {
     this._buttonDeleteTextConfirmation.textContent = "Удаление..." 
   }
 
+
   setEventListeners() {
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
@@ -24,5 +25,9 @@ export default class PopupWithConfirmation extends Popup {
       this._renderLoading();
     });
     super.setEventListeners();
+  }
+  
+  savingDataText(text) {
+    this._buttonDeleteTextConfirmation.textContent = text;
   }
 }
