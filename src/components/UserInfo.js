@@ -13,14 +13,6 @@ export default class UserInfo {
       }        
   };
 
-  renderLoading() {
-    this._buttonAvatarText.textContent = "Сохранение..." 
-  }
-
-  savingData(text) {
-    this._buttonAvatarText.textContent = text; 
-  }
-
   setUserInfo(userData) {
     const {name, about, avatar} = userData;
     this._userName.textContent = name;

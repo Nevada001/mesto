@@ -3,8 +3,8 @@ export default class PopupWithConfirmation extends Popup {
   constructor(submitDelete, popupSelector) {
     super(popupSelector);
     this._submitDelete = submitDelete;
-    this._buttonDeleteTextConfirmation = this._popup.querySelector(".popup__button");
     this._form = this._popup.querySelector(".popup__form");
+    this._buttonSubmit = this._popup.querySelector('.popup__button');
   }
 
   open(cardItem, cardElement) {
@@ -13,8 +13,8 @@ export default class PopupWithConfirmation extends Popup {
     super.open();
   }
 
-  _renderLoading() {
-    this._buttonDeleteTextConfirmation.textContent = "Удаление..." 
+  renderLoading(text) {
+    this._buttonSubmit.textContent = text; 
   }
 
 
@@ -22,7 +22,7 @@ export default class PopupWithConfirmation extends Popup {
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._submitDelete(this.cardItem, this.cardElement);
-      this._renderLoading();
+      this.renderLoading("Удаление...");
     });
     super.setEventListeners();
   }

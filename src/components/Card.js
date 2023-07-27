@@ -6,7 +6,6 @@ export default class Card {
     this._link = data.link;
     this._likes = data.likes;
     this._currentUser = currentUser;
-    this._currentUserId = data._id;
     this._userId = data.owner._id;
     this._handleCardClick = handleCardClick;
     this._handleCardLike = callbacks.handleCardLike;

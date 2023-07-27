@@ -9,9 +9,6 @@ export default class FormValidator {
     this._inputList = formElement.querySelectorAll(
       validaitionConfig.inputSelector
     );
-    this._inputElement = formElement.querySelector(
-      validaitionConfig.inputSelector
-    );
   }
 
   _hideInputError(inputElement) {

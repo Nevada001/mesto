@@ -1,4 +1,4 @@
-import './index.css';
+//import './index.css';
 import Api from "../components/Api.js";
 import { enableValidationObject } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
@@ -42,20 +42,24 @@ const userInfo = new UserInfo({
 });
 
 function submitFormEditProfile(formValues) {
+  formEditProfileChanged.renderLoading('Сохранение...');
   api
     .setUserInfo(formValues.userName, formValues.userInfo)
     .then((userData) => {
       userInfo.setUserInfo(userData);
+      formEditProfileChanged.close();
     })
 
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
-    });
-  formEditProfileChanged.close();
+    })
+    .finally(() => formEditProfileChanged.savingData('Сохранить'))
 }
 
 let currentUser;
 let cardList;
+
+const formDeleteCard = new PopupWithForm(handleCardDelete, '.popup_delete')
 
 function handleCardDelete(cardItem, cardElement) {
   api
@@ -67,7 +71,7 @@ function handleCardDelete(cardItem, cardElement) {
     .catch((err) => {
       console.log(`bad ${err}`)
     })
-    .finally(() => popupWithConfirmation.savingDataText('Да'))
+    .finally(() => formDeleteCard.savingData('Да'))
 }
 
 const popupWithConfirmation = new PopupWithConfirmation(
@@ -108,7 +112,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     currentUser = userData._id;
     cardList = new Section(
       {
-        items: cardData,
+        items: cardData.reverse(),
         renderer: (item) => {
           cardList.addItem(createCard(item));
         },
@@ -124,10 +128,10 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   
 
 function submitFormAdd(formValues) {
+  formElementAddDone.renderLoading('Создание...');
   api
     .addNewCard(formValues.placeName, formValues.link)
     .then((card) => {
-      console.log(card);
       cardList = new Section(
         {
           items: card,
@@ -138,33 +142,34 @@ function submitFormAdd(formValues) {
         ".cards"
       );
       cardList.addItem(createCard(card));
-      
+      formElementAddDone.close()
     })
-
     .catch((err) => {
       console.log(`bad ${err}`);
-    });
-    formElementAddDone.close()
+    })
+    .finally(() => formElementAddDone.savingData('Создать'))
 }
 
 function submitNewAvatar(formValues) {
+  formChangeAvatar.renderLoading('Обновление...');
   api.changeUserAvatar(formValues.avatarLink)
     .then((userData) => {
       userInfo.setUserInfo(userData);
+      formChangeAvatar.renderLoading('Сохранение...')
+      formChangeAvatar.close();
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
     })
-    .finally(() => userInfo.savingData('Сохранить'));
-  formEditProfileChanged.close();
+    .finally(() => formChangeAvatar.savingData('Сохранить'));
 }
 
 const formChangeAvatar = new PopupWithForm(submitNewAvatar, ".popup_avatar-edit");
 formChangeAvatar.setEventListeners();
 buttomOpenFormAvatar.addEventListener('click', () => {
   formChangeAvatar.open();
-  popupEditValidator.resetValidationState();
-  popupEditValidator.toggleButtonState();
+  popupAvatarEditValidator.resetValidationState();
+  popupAvatarEditValidator.toggleButtonState();
 })
 
 const formEditProfileChanged = new PopupWithForm(

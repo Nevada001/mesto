@@ -2,6 +2,7 @@ export default class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
+    this._validateRes = this._validateRes.bind(this)
   }
 
   _validateRes(res) {
@@ -15,7 +16,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     })
-      .then(this._validateRes.bind(this))
+      .then(this._validateRes)
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       });
@@ -23,7 +24,7 @@ export default class Api {
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers })
-      .then(this._validateRes.bind(this))
+      .then(this._validateRes)
 
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -39,7 +40,7 @@ export default class Api {
         about: about,
       }),
     })
-      .then(this._validateRes.bind(this))
+      .then(this._validateRes)
 
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -55,7 +56,7 @@ export default class Api {
         link: link,
       }),
     })
-      .then(this._validateRes.bind(this))
+      .then(this._validateRes)
 
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -67,7 +68,7 @@ export default class Api {
       method: "PUT",
       headers: this._headers,
     })
-      .then(this._validateRes.bind(this))
+      .then(this._validateRes)
 
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -78,7 +79,7 @@ export default class Api {
       method: "DELETE",
       headers: this._headers,
     })
-      .then(this._validateRes.bind(this))
+      .then(this._validateRes)
 
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -90,7 +91,7 @@ export default class Api {
       method: "DELETE",
       headers: this._headers,
     })
-      .then(this._validateRes.bind(this))
+      .then(this._validateRes)
 
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -105,10 +106,6 @@ export default class Api {
         avatar: avatar,
       }),
     })
-      .then(this._validateRes.bind(this))
-
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
+      .then(this._validateRes)
   }
 }
