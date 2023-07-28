@@ -41,6 +41,7 @@ const userInfo = new UserInfo({
   avatar: ".profile__avatar",
 });
 
+
 function submitFormEditProfile(formValues) {
   formEditProfileChanged.renderLoading('Сохранение...');
   api
@@ -56,33 +57,33 @@ function submitFormEditProfile(formValues) {
     .finally(() => formEditProfileChanged.savingData('Сохранить'))
 }
 
-let card;
 let currentUser;
 let cardList;
 
-const formDeleteCard = new PopupWithForm(handleCardDelete, '.popup_delete')
-
-function handleCardDelete(cardItem, cardElement) {
+function handleCardDelete(cardItem, card) {
+  popupWithConfirmation.open();
   api
-    .removeCard(cardItem)
-    .then(() => {
-      card.deleteCard(cardElement);
-      popupWithConfirmation.close();
-    })
-    .catch((err) => {
-      console.log(`bad ${err}`)
-    })
-    .finally(() => formDeleteCard.savingData('Да'))
+      .removeCard(cardItem)
+      .then(() => {
+        card.deleteCard();
+        popupWithConfirmation.close();
+      })
+      .catch((err) => {
+        console.log(`bad ${err}`)
+      })
+  
+  
 }
 
+
 const popupWithConfirmation = new PopupWithConfirmation(
-  handleCardDelete,
-  ".popup_delete"
+  ".popup_delete", handleCardDelete
 );
 popupWithConfirmation.setEventListeners();
 
+
 function createCard(cardItem) {
-  card = new Card(cardItem, "#item", currentUser, handleCardClick, {
+  const card = new Card(cardItem, "#item", currentUser, handleCardClick, {
     handleCardLike: (cardItem) => {
       api
         .addLike(cardItem)
@@ -103,8 +104,11 @@ function createCard(cardItem) {
           console.log(`bad ${err}`);
         });
     },
-    handleCardDelete: popupWithConfirmation.open.bind(popupWithConfirmation),
-  });
+    handleOpenPopupCardDelete: (cardItem, card) => {
+      handleCardDelete(cardItem, card)
+    }
+    })
+
   return card.generateCard();
 }
 

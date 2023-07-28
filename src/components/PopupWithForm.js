@@ -4,7 +4,7 @@ constructor (formSubmit, popupSelector) {
   super(popupSelector);
   this._formSubmit = formSubmit;
   this._inputList = this._popup.querySelectorAll('.popup__input');
-  this._Submitbutton = this._popup.querySelector('.popup__button');
+  this._submitbutton = this._popup.querySelector('.popup__button');
   this._form = this._popup.querySelector('.popup__form');
 }
 
@@ -17,11 +17,11 @@ _getInputValues() {
 }
 
 renderLoading(text) {
-  this._Submitbutton.textContent = text;
+  this._submitbutton.textContent = text;
 }
 
 savingData(text) {
-  this._Submitbutton.textContent = text;
+  this._submitbutton.textContent = text;
 }
  
 setEventListeners() {

@@ -10,7 +10,7 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._handleCardLike = callbacks.handleCardLike;
     this._handleCardDislike = callbacks.handleCardDislike;
-    this._handleCardDelete = callbacks.handleCardDelete;
+    this._handleOpenPopupCardDelete = callbacks.handleOpenPopupCardDelete;
   }
 
   _getTemplate() {
@@ -20,6 +20,12 @@ export default class Card {
       .cloneNode(true);
     return cardElement;
   }
+
+  deleteCard() {
+    this._element.remove();
+    this._element = null;
+  }
+
 
   generateCard() {
     this._element = this._getTemplate();
@@ -41,12 +47,6 @@ export default class Card {
     return this._element;
   }
 
-  
-  deleteCard(element) {
-    element.remove();
-    element = null;
-  }
-
   _setEventListeners() {
     this._cardLike.addEventListener("click", () => {
       if (this._checkLikeButton()) {
@@ -61,7 +61,7 @@ export default class Card {
         this._handleCardClick(this._name, this._link);
       });
     this._cardDeleteButton.addEventListener("click", () => {
-      this._handleCardDelete(this._data, this._element);
+      this._handleOpenPopupCardDelete(this._data, this);
     });
   }
   
