@@ -56,6 +56,7 @@ function submitFormEditProfile(formValues) {
     .finally(() => formEditProfileChanged.savingData('Сохранить'))
 }
 
+let card;
 let currentUser;
 let cardList;
 
@@ -65,7 +66,7 @@ function handleCardDelete(cardItem, cardElement) {
   api
     .removeCard(cardItem)
     .then(() => {
-      cardList.deleteCard(cardElement);
+      card.deleteCard(cardElement);
       popupWithConfirmation.close();
     })
     .catch((err) => {
@@ -81,7 +82,7 @@ const popupWithConfirmation = new PopupWithConfirmation(
 popupWithConfirmation.setEventListeners();
 
 function createCard(cardItem) {
-  const card = new Card(cardItem, "#item", currentUser, handleCardClick, {
+  card = new Card(cardItem, "#item", currentUser, handleCardClick, {
     handleCardLike: (cardItem) => {
       api
         .addLike(cardItem)

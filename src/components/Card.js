@@ -60,7 +60,10 @@ export default class Card {
     });
   }
 
-
+  deleteCard(element) {
+    element.remove();
+    element = null;
+  }
 
   _checkLikeButton() {
     return this._cardLike.classList.contains("card__heart_active");
