@@ -65,14 +65,16 @@ function handleCardDelete(cardItem, card) {
   api
       .removeCard(cardItem)
       .then(() => {
+        popupWithConfirmation.renderLoading("Удаление...")
         card.deleteCard();
         popupWithConfirmation.close();
       })
       .catch((err) => {
         console.log(`bad ${err}`)
       })
-  
-  
+      .finally(() => {
+        popupWithConfirmation.savingData("Да")
+      })
 }
 
 
