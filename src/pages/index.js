@@ -1,4 +1,4 @@
-import './index.css';
+//import './index.css';
 import Api from "../components/Api.js";
 import { enableValidationObject } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";

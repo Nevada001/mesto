@@ -17,18 +17,11 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._validateRes)
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers })
       .then(this._validateRes)
-
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
   }
 
   setUserInfo(name, about) {
@@ -41,10 +34,6 @@ export default class Api {
       }),
     })
       .then(this._validateRes)
-
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
   }
 
   addNewCard(name, link) {
@@ -57,10 +46,6 @@ export default class Api {
       }),
     })
       .then(this._validateRes)
-
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
   }
 
   addLike(cardItem) {
@@ -69,10 +54,6 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._validateRes)
-
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
   }
   removeLike(cardItem) {
     return fetch(`${this._baseUrl}/cards/${cardItem._id}/likes`, {
@@ -80,10 +61,6 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._validateRes)
-
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
   }
 
   removeCard(cardItem) {
@@ -92,10 +69,6 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._validateRes)
-
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
   }
 
   changeUserAvatar(avatar) {

@@ -41,6 +41,12 @@ export default class Card {
     return this._element;
   }
 
+  
+  deleteCard(element) {
+    element.remove();
+    element = null;
+  }
+
   _setEventListeners() {
     this._cardLike.addEventListener("click", () => {
       if (this._checkLikeButton()) {
@@ -49,7 +55,6 @@ export default class Card {
         this._handleCardLike(this._data);
       }
     });
-
     this._element
       .querySelector(".card__image")
       .addEventListener("click", () => {
@@ -59,12 +64,7 @@ export default class Card {
       this._handleCardDelete(this._data, this._element);
     });
   }
-
-  deleteCard(element) {
-    element.remove();
-    element = null;
-  }
-
+  
   _checkLikeButton() {
     return this._cardLike.classList.contains("card__heart_active");
   }
