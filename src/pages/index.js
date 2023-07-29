@@ -1,4 +1,4 @@
-//import './index.css';
+import './index.css';
 import Api from "../components/Api.js";
 import { enableValidationObject } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
@@ -60,12 +60,14 @@ function submitFormEditProfile(formValues) {
 let currentUser;
 let cardList;
 
+
+
 function handleCardDelete(cardItem, card) {
-  popupWithConfirmation.open();
+  popupWithConfirmation.renderLoading("Удаление...")
   api
       .removeCard(cardItem)
       .then(() => {
-        popupWithConfirmation.renderLoading("Удаление...")
+        
         card.deleteCard();
         popupWithConfirmation.close();
       })
@@ -76,8 +78,6 @@ function handleCardDelete(cardItem, card) {
         popupWithConfirmation.savingData("Да")
       })
 }
-
-
 const popupWithConfirmation = new PopupWithConfirmation(
   ".popup_delete", handleCardDelete
 );
@@ -106,9 +106,7 @@ function createCard(cardItem) {
           console.log(`bad ${err}`);
         });
     },
-    handleOpenPopupCardDelete: (cardItem, card) => {
-      handleCardDelete(cardItem, card)
-    }
+    handleOpenPopupCardDelete: popupWithConfirmation.open.bind(popupWithConfirmation)
     })
 
   return card.generateCard();
