@@ -54,13 +54,11 @@ function submitFormEditProfile(formValues) {
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
     })
-    .finally(() => formEditProfileChanged.savingData('Сохранить'))
+    .finally(() => formEditProfileChanged.renderLoading('Сохранить'))
 }
 
 let currentUser;
 let cardList;
-
-
 
 function handleCardDelete(cardItem, card) {
   popupWithConfirmation.renderLoading("Удаление...")
@@ -75,7 +73,7 @@ function handleCardDelete(cardItem, card) {
         console.log(`bad ${err}`)
       })
       .finally(() => {
-        popupWithConfirmation.savingData("Да")
+        popupWithConfirmation.renderLoading("Да")
       })
 }
 const popupWithConfirmation = new PopupWithConfirmation(
@@ -137,36 +135,26 @@ function submitFormAdd(formValues) {
   api
     .addNewCard(formValues.placeName, formValues.link)
     .then((card) => {
-      cardList = new Section(
-        {
-          items: card,
-          renderer: (item) => {
-            cardList.addItem(createCard(item));
-          },
-        },
-        ".cards"
-      );
       cardList.addItem(createCard(card));
       formElementAddDone.close()
     })
     .catch((err) => {
       console.log(`bad ${err}`);
     })
-    .finally(() => formElementAddDone.savingData('Создать'))
+    .finally(() => formElementAddDone.renderLoading('Создать'))
 }
 
 function submitNewAvatar(formValues) {
-  formChangeAvatar.renderLoading('Обновление...');
+  formChangeAvatar.renderLoading('Сохранение...')
   api.changeUserAvatar(formValues.avatarLink)
     .then((userData) => {
       userInfo.setUserInfo(userData);
-      formChangeAvatar.renderLoading('Сохранение...')
       formChangeAvatar.close();
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
     })
-    .finally(() => formChangeAvatar.savingData('Сохранить'));
+    .finally(() => formChangeAvatar.renderLoading('Сохранить'));
 }
 
 const formChangeAvatar = new PopupWithForm(submitNewAvatar, ".popup_avatar-edit");

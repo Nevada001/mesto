@@ -19,10 +19,6 @@ _getInputValues() {
 renderLoading(text) {
   this._submitbutton.textContent = text;
 }
-
-savingData(text) {
-  this._submitbutton.textContent = text;
-}
  
 setEventListeners() {
   this._form.addEventListener("submit", evt => {
